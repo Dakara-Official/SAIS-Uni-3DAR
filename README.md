@@ -9,12 +9,10 @@
 ```
 
 
-
-1. 训练过程使用的数据
+## 训练过程使用的数据
 有且仅有sais赛方提供的复赛数据集
 
-
-2. 训练过程的环境
+## 训练过程的环境
 4090D
 处理器: 112核心
 内存: 256G
@@ -24,16 +22,15 @@ cuda版本：12.4
 
 环境配置见requirements.txt
 
-
 有些包无法通过pip install [名字] 进行直接安装，故提供我的环境配置操作步骤供参考
 若想复现我的代码，建议严格按照我的配置顺序进行环境配置，以免发生未知错误
 
 我的镜像环境配置操作如下(在通过Dockerfile创建镜像成功后)
-创建conda虚拟环境
+### 创建conda虚拟环境
 ```
 conda create -n pytorch2.6_cuda118 python=3.12.0
 ```
-进入虚拟环境，run.sh中加入了source activate pytorch2.6_cuda118来自动激活虚拟环境
+### 进入虚拟环境，run.sh中加入了source activate pytorch2.6_cuda118来自动激活虚拟环境
 ```
 conda activate pytorch2.6_cuda118
 ```
@@ -50,7 +47,7 @@ pip install flash_attn-2.7.3+cu11torch2.6cxx11abiFALSE-cp312-cp312-linux_x86_64.
 git clone https://github.com/dptech-corp/Uni-Core
 cd /Uni-Core-main
 pip install .
-
+```
 安装其他包
 ```
 pip install numba pandas scikit-learn
