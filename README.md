@@ -7,10 +7,11 @@
   year      = {2025},
 }
 ```
-
+本模型为第三届世界科学智能大赛材料设计赛道优胜奖作品
+本SAIS-Uni-3DAR模型，可基于量化性质数值（如分子能量等单一数值条件）条件生成小分子
 
 ## 训练过程使用的数据
-有且仅有sais赛方提供的复赛数据集
+Uni-3DAR本身的数据集中，每一个分子由一行字典构成，只需在其中加入一个键"properties"，并赋予相应值，即可启用该变种模型
 
 ## 训练过程的环境
 4090D
@@ -23,7 +24,7 @@ cuda版本：12.4
 环境配置见requirements.txt
 
 有些包无法通过pip install [名字] 进行直接安装，故提供我的环境配置操作步骤供参考
-若想复现我的代码，建议严格按照我的配置顺序进行环境配置，以免发生未知错误
+若想复现我的代码，建议严格按照我的配置顺序进行环境配置，以免发生未知错误（大佬随意）
 
 我的镜像环境配置操作如下(在通过Dockerfile创建镜像成功后)
 ### 创建conda虚拟环境
@@ -58,19 +59,19 @@ pip install numba pandas scikit-learn
 ## 其他附加说明
 在Uni-3DAR源代码的基础上，删除/注释掉了筛选生成分子以及其他不必要的功能，增加了基于量化化学性质的条件生成功能：
 
-在/app/training_code/uni3dar/data中
+在/uni3dar/data中
 新建molecule_energy_data_utils.py与molecule_energy_grid_dataset.py
 修改了atom_data.py、atom_dictionary.py、grid_dataset.py
 删除源代码中的crystal_data_utils.py、crystal_grid_dataset.py、protein_grid_dataset.py
 
-在/app/training_code/uni3dar/models中
+在/uni3dar/models中
 修改了uni3dar_sampler.py与uni3dar.py
 删除了diffusion文件夹与diffusion_prediction_head.py
 
-在/app/training_code/uni3dar/tasks中
+在/uni3dar/tasks中
 修改了uni3dar.py
 
-在/app/training_code/uni3dar中
+在/uni3dar中
 修改了inference.py
 
 
@@ -112,7 +113,7 @@ tree_temperature、atom_temperature、xyz_temperature #这三个传参为生成�
 --valid-subset valid # 验证集名称
 --condition-file /saisdata/input_condition.csv # 条件集文件路径
 
-另外生成submit.pkl的路径需要在/app/training_code/uni3dar/inference.py中的第323行处修改，如下所示
+另外生成submit.pkl的路径需要在/uni3dar/inference.py中的第323行处修改，如下所示
     with open("/saisresult/submit.pkl", "wb") as f:
         pickle.dump(parsed_molecules, f)
     print(parsed_molecules)
