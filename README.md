@@ -62,18 +62,18 @@ GPU: NVIDIA 4090D GPU卡 * 4
 GPU显存：24G
 cuda版本：12.4
 
-环境中配置的所有包及对应版本见/app/requirements/requirements.txt
+环境中配置的所有包及对应版本见requirements.txt
 
 
 有些包无法通过pip install [名字] 进行直接安装，故提供我的环境配置操作步骤供参考
 若想复现我的代码，建议严格按照我的配置顺序进行环境配置，以免发生未知错误
 
 我的镜像环境配置操作如下(在通过Dockerfile创建镜像成功后)
-
+```
 conda create -n pytorch2.6_cuda118 python=3.12.0 #创建conda虚拟环境
-
+```
 conda activate pytorch2.6_cuda118 #进入虚拟环境，run.sh中加入了source activate pytorch2.6_cuda118来自动激活虚拟环境
-
+```
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu118  #安装torch及cuda
 
 cd /app/requirements #进入配置文件夹
