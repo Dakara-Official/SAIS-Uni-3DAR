@@ -34,28 +34,28 @@ conda create -n pytorch2.6_cuda118 python=3.12.0
 ```
 conda activate pytorch2.6_cuda118
 ```
-安装torch及cuda
+### 安装torch及cuda
 ```
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu118
 ```
-安装flash-attention 链接：https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.3/flash_attn-2.7.3+cu11torch2.6cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
+### 安装flash-attention 链接：https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.3/flash_attn-2.7.3+cu11torch2.6cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
 ```
 pip install flash_attn-2.7.3+cu11torch2.6cxx11abiFALSE-cp312-cp312-linux_x86_64.whl
 ```
-安装Uni-Core
+### 安装Uni-Core
 ```
 git clone https://github.com/dptech-corp/Uni-Core
 cd /Uni-Core-main
 pip install .
 ```
-安装其他包
+### 安装其他包
 ```
 pip install numba pandas scikit-learn
 ```
 进行以上操作后环境配置完毕
 
 
-3. 其他附加说明
+## 其他附加说明
 在Uni-3DAR源代码的基础上，删除/注释掉了筛选生成分子以及其他不必要的功能，增加了基于量化化学性质的条件生成功能：
 
 在/app/training_code/uni3dar/data中
@@ -81,22 +81,21 @@ pip install numba pandas scikit-learn
 
 
 
-##训练说明
-/app/training_code/中的submit.sh与ini_submit.sh均设置为初始训练参数，前者为slurm系统的提交脚本版本
-##复现训练命令
+## 训练说明
+submit.sh与ini_submit.sh均设置为初始训练参数，前者为slurm系统的提交脚本版本
+## 复现训练命令
 bash ini_submit.sh [训练集与验证集所在的文件夹路径] [自定义训练任务名称]
-在/app/training_code/results/中可以看到以[自定义训练任务名称]命名的文件夹，保存的模型权重及其他信息均在其中
+在/results/中可以看到以[自定义训练任务名称]命名的文件夹，保存的模型权重及其他信息均在其中
 
-③生成说明
-/app/training_code/中的sample.sh与ini_sample.sh均设置为初始训练参数，前者为slurm系统的提交脚本版本
+## 生成说明
+sample.sh与ini_sample.sh均设置为初始训练参数，前者为slurm系统的提交脚本版本
 复现训练命令
-bash ini_sample.sh [选取的模型权重文件的路径] # 生成脚本/app/run.sh为了满足比赛条件，已经将路径嵌入脚本内
-生成的分子保存在/saisresult/submit.pkl中
+bash ini_sample.sh [选取的模型权重文件的路径]
 
 注意生成脚本中merge_level、layer、emb_dim、head_num必须与训练脚本中的保持一致
 
-④传参说明
-主要传参设置在/app/training_code/uni3dar/tasks/uni3dar.py与/app/training_code/uni3dar/models/uni3dar.py中
+## 传参说明
+主要传参设置在/uni3dar/tasks/uni3dar.py与/uni3dar/models/uni3dar.py中
 
 调参过程只涉及以下九个传参的变动，其余传参均不变
 merge_level、layer、emb_dim、head_num、batch_size、batch_size_valid #这六个传参为训练脚本与生成脚本共有
